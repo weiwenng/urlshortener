@@ -38,6 +38,16 @@ app.get('/api/:shorturl', async (req, res) => {
     res.redirect(shortUrl.full)
 })
 
+app.delete('/api/:urlId', async (req, res) => {
+    const {urlId} = req.params;
+    try {
+        const deletedLink = await ShortUrl.findByIdAndRemove(urlId)
+        res.send({ status: "success", data: deletedLink })
+    } catch (err) {
+        res.send(err)
+    }
+})
+
 app.listen(PORT, () => {
     console.log("hehe im listening @ port", PORT)
 })
