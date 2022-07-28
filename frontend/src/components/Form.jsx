@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Form = () => {
+const Form = ({setUrls}) => {
   const [fullUrl, setFullUrl] = useState({ full: ""});
 
   const shrinkUrl = (e) => {
@@ -11,13 +11,17 @@ const Form = () => {
       body: JSON.stringify(fullUrl),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        setFullUrl({ full: ""})
+        fetch('/api/urls').then((res) => res.json()).then(data => setUrls(data))
+      });
   };
 
   return (
     <form onSubmit={shrinkUrl}>
       <label htmlFor="fullURL">URL</label>
       <input
+        style={{width: "100%", margin: "10px auto" }}
         type="url"
         name="fullURL"
         id="fullURL"

@@ -4,11 +4,11 @@ import DisplayTable from './components/DisplayTable'
 import Form from './components/Form'
 
 function App() {
-  
+  const [urls, setUrls] = useState()
   return (
     <div className="App">
-      <Form />
-      <DisplayTable />
+      <Form setUrls={setUrls}/>
+      <DisplayTable urls={urls} setUrls={setUrls} />
     </div>
   )
 }
